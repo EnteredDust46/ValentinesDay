@@ -30,8 +30,8 @@
   const BANANA_SCALE_MIN = 0.55;
   const BANANA_SCALE_MAX = 1.1;
   const BANANA_HITBOX_SCALE = 0.95;
-  const SPAWN_GORILLA_MIN = 32;
-  const SPAWN_GORILLA_MAX = 72;
+  const SPAWN_GORILLA_MIN = 55;
+  const SPAWN_GORILLA_MAX = 115;
   const SPAWN_BANANA_MIN = 28;
   const SPAWN_BANANA_MAX = 70;
   const PLATFORM_HEIGHT = 14;
@@ -175,7 +175,7 @@
       plat = { x: canvas.width, y: groundY - PLATFORM_HIGH_Y_OFF, w: Math.round(w), h: PLATFORM_HEIGHT };
       platforms.push(plat);
     }
-    if (Math.random() < 0.42 && plat) {
+    if (Math.random() < 0.24 && plat) {
       var gs = GORILLA_SCALE_MIN + Math.random() * (GORILLA_SCALE_MAX - GORILLA_SCALE_MIN);
       var gw = Math.round(GORILLA_WIDTH_BASE * gs);
       var gh = Math.round(GORILLA_HEIGHT_BASE * gs);
