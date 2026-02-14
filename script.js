@@ -56,13 +56,15 @@
         '</p>',
       ].join('');
     } else {
-      // Resolve base path so images work on GitHub Pages (e.g. /ValentinesDay/) and locally
+      // Resolve base URL so images work on GitHub Pages (e.g. .../ValentinesDay or .../ValentinesDay/)
       const base = (function () {
-        const u = window.location.href;
-        const i = u.indexOf('#');
-        const path = i >= 0 ? u.slice(0, i) : u;
-        const lastSlash = path.lastIndexOf('/');
-        return lastSlash > path.indexOf('//') + 1 ? path.slice(0, lastSlash + 1) : '';
+        const path = window.location.pathname;
+        let dir = path;
+        if (!dir.endsWith('/')) {
+          if (path.lastIndexOf('/') > 0) dir = path.slice(0, path.lastIndexOf('/') + 1);
+          else dir = path + '/';  // e.g. /ValentinesDay -> /ValentinesDay/
+        }
+        return window.location.origin + dir;
       })();
 
       list.forEach((filename, index) => {
