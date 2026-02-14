@@ -11,33 +11,34 @@
   if (!gameRestartBtn) return;
 
   const ctx = canvas.getContext('2d');
-  const GRAVITY = 0.55;
-  const JUMP_STRENGTH = -13;
-  const JUMP_HOLD_BOOST = 0.82;
-  const JUMP_HOLD_MAX_FRAMES = 26;
+  const GRAVITY = 0.68;
+  const JUMP_STRENGTH = -6.5;
+  const JUMP_HOLD_BOOST = 0.9;
+  const JUMP_HOLD_MAX_FRAMES = 14;
+  const MAX_UPWARD_VELOCITY = -9;
   const GROUND_Y_RATIO = 0.82;
-  const SCROLL_SPEED = 7;
+  const SCROLL_SPEED = 6.3;
   const PLAYER_WIDTH = 72;
   const PLAYER_HEIGHT = 72;
   const PLAYER_HITBOX_SCALE = 0.4;
-  const GORILLA_WIDTH_BASE = 60;
-  const GORILLA_HEIGHT_BASE = 60;
-  const GORILLA_SCALE_MIN = 0.65;
-  const GORILLA_SCALE_MAX = 1.05;
+  const GORILLA_WIDTH_BASE = 68;
+  const GORILLA_HEIGHT_BASE = 68;
+  const GORILLA_SCALE_MIN = 0.7;
+  const GORILLA_SCALE_MAX = 1.1;
   const GORILLA_HITBOX_SCALE = 0.45;
   const BANANA_SIZE_BASE = 44;
   const BANANA_SCALE_MIN = 0.55;
   const BANANA_SCALE_MAX = 1.1;
   const BANANA_HITBOX_SCALE = 0.95;
-  const SPAWN_GORILLA_MIN = 65;
-  const SPAWN_GORILLA_MAX = 135;
+  const SPAWN_GORILLA_MIN = 32;
+  const SPAWN_GORILLA_MAX = 72;
   const SPAWN_BANANA_MIN = 28;
   const SPAWN_BANANA_MAX = 70;
   const PLATFORM_HEIGHT = 14;
   const PLATFORM_LOW_Y_OFF = 88;
   const PLATFORM_HIGH_Y_OFF = 158;
-  const SPAWN_PLATFORM_MIN = 85;
-  const SPAWN_PLATFORM_MAX = 165;
+  const SPAWN_PLATFORM_MIN = 48;
+  const SPAWN_PLATFORM_MAX = 105;
 
   let groundY;
   let playerX, playerY, playerVy;
@@ -104,9 +105,23 @@
     gameOverOverlay.hidden = true;
   }
 
+  function canJump() {
+    if (playerY >= groundY - PLAYER_HEIGHT - 2) return true;
+    for (var p = 0; p < platforms.length; p++) {
+      var plat = platforms[p];
+      if (
+        playerY + PLAYER_HEIGHT >= plat.y - 4 &&
+        playerY + PLAYER_HEIGHT <= plat.y + PLATFORM_HEIGHT + 8 &&
+        playerX + PLAYER_WIDTH > plat.x &&
+        playerX < plat.x + plat.w
+      ) return true;
+    }
+    return false;
+  }
+
   function jumpStart() {
     if (gameState !== 'playing') return;
-    if (playerY >= groundY - PLAYER_HEIGHT - 2) {
+    if (canJump()) {
       playerVy = JUMP_STRENGTH;
       jumpHoldFrames = 0;
     }
@@ -116,7 +131,7 @@
     var scale = GORILLA_SCALE_MIN + Math.random() * (GORILLA_SCALE_MAX - GORILLA_SCALE_MIN);
     var w = Math.round(GORILLA_WIDTH_BASE * scale);
     var h = Math.round(GORILLA_HEIGHT_BASE * scale);
-    var floating = Math.random() < 0.45;
+    var floating = Math.random() < 0.22;
     var y;
     if (floating) {
       if (Math.random() < 0.55) {
@@ -146,13 +161,10 @@
   function spawnPlatform() {
     var w = 85 + Math.random() * 65;
     var r = Math.random();
+    var plat;
     if (r < 0.5) {
-      platforms.push({
-        x: canvas.width,
-        y: groundY - PLATFORM_LOW_Y_OFF,
-        w: Math.round(w),
-        h: PLATFORM_HEIGHT
-      });
+      plat = { x: canvas.width, y: groundY - PLATFORM_LOW_Y_OFF, w: Math.round(w), h: PLATFORM_HEIGHT };
+      platforms.push(plat);
     } else {
       platforms.push({
         x: canvas.width + 115,
@@ -160,12 +172,15 @@
         w: Math.round(w * 0.9),
         h: PLATFORM_HEIGHT
       });
-      platforms.push({
-        x: canvas.width,
-        y: groundY - PLATFORM_HIGH_Y_OFF,
-        w: Math.round(w),
-        h: PLATFORM_HEIGHT
-      });
+      plat = { x: canvas.width, y: groundY - PLATFORM_HIGH_Y_OFF, w: Math.round(w), h: PLATFORM_HEIGHT };
+      platforms.push(plat);
+    }
+    if (Math.random() < 0.42 && plat) {
+      var gs = GORILLA_SCALE_MIN + Math.random() * (GORILLA_SCALE_MAX - GORILLA_SCALE_MIN);
+      var gw = Math.round(GORILLA_WIDTH_BASE * gs);
+      var gh = Math.round(GORILLA_HEIGHT_BASE * gs);
+      var gx = plat.x + Math.max(0, (plat.w - gw) / 2 + (Math.random() * 20 - 10));
+      gorillas.push({ x: gx, w: gw, h: gh, y: plat.y - gh });
     }
   }
 
@@ -210,12 +225,14 @@
     if (gameState !== 'playing') return;
 
     playerVy += GRAVITY;
-    if (playerY < groundY - PLAYER_HEIGHT - 2 && jumpKeyHeld && jumpHoldFrames < JUMP_HOLD_MAX_FRAMES) {
+    if (
+      playerVy <= 0 &&
+      jumpKeyHeld &&
+      jumpHoldFrames < JUMP_HOLD_MAX_FRAMES
+    ) {
       playerVy -= JUMP_HOLD_BOOST;
       jumpHoldFrames++;
-    }
-    if (playerY >= groundY - PLAYER_HEIGHT) {
-      jumpHoldFrames = 999;
+      if (playerVy < MAX_UPWARD_VELOCITY) playerVy = MAX_UPWARD_VELOCITY;
     }
     playerY += playerVy;
 
@@ -224,18 +241,18 @@
       playerVy = 0;
       jumpHoldFrames = 0;
     } else {
-      var onPlatform = false;
       for (var p = 0; p < platforms.length; p++) {
         var plat = platforms[p];
-        if (playerVy >= 0 &&
-            playerY + PLAYER_HEIGHT >= plat.y - 4 &&
-            playerY + PLAYER_HEIGHT <= plat.y + PLATFORM_HEIGHT + 8 &&
-            playerX + PLAYER_WIDTH > plat.x &&
-            playerX < plat.x + plat.w) {
+        if (
+          playerVy >= 0 &&
+          playerY + PLAYER_HEIGHT >= plat.y - 4 &&
+          playerY + PLAYER_HEIGHT <= plat.y + PLATFORM_HEIGHT + 8 &&
+          playerX + PLAYER_WIDTH > plat.x &&
+          playerX < plat.x + plat.w
+        ) {
           playerY = plat.y - PLAYER_HEIGHT;
           playerVy = 0;
           jumpHoldFrames = 0;
-          onPlatform = true;
           break;
         }
       }

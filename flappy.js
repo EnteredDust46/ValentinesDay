@@ -27,6 +27,7 @@
   var score = 0;
   var nextPipeIn = 0;
   var gameState = 'idle';
+  var hasHadFirstInput = false;
   var animId = null;
   var gorillaImg = null;
   var bananaImg = null;
@@ -51,12 +52,14 @@
     score = 0;
     nextPipeIn = 80;
     gameState = 'playing';
+    hasHadFirstInput = false;
     scoreEl.textContent = 'Bananas: 0';
     gameOverEl.hidden = true;
   }
 
   function flap() {
     if (gameState !== 'playing') return;
+    if (!hasHadFirstInput) hasHadFirstInput = true;
     monkeyVy = FLAP_STRENGTH;
   }
 
@@ -93,6 +96,7 @@
 
   function update() {
     if (gameState !== 'playing') return;
+    if (!hasHadFirstInput) return;
 
     monkeyVy += GRAVITY;
     monkeyY += monkeyVy;

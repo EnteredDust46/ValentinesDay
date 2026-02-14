@@ -59,7 +59,7 @@
       list.forEach((filename, index) => {
         const card = document.createElement('div');
         card.className = 'media-card';
-        card.style.animationDelay = (0.05 + index * 0.06) + 's';
+        card.style.animationDelay = (0.05 + index * 0.07) + 's';
 
         const src = 'images/' + encodeURIComponent(filename);
 

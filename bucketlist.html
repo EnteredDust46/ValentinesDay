@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Bucket List — Adam & Meaghan 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .bucket-page { padding: 2rem 1rem 4rem; max-width: 44rem; margin: 0 auto; }
+    .bucket-page h1 { font-family: 'Itim', cursive; color: var(--pink-deep); text-align: center; margin-bottom: 0.5rem; animation: bucketFadeIn 0.6s ease-out; }
+    .bucket-page .sub { text-align: center; color: #8b4a5c; margin-bottom: 2rem; animation: bucketFadeIn 0.6s ease-out 0.1s both; }
+    @keyframes bucketFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bucket-section {
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,248,250,0.9) 100%);
+      border-radius: 20px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 16px var(--shadow), 0 0 0 1px rgba(233,30,99,0.08);
+      border: 1px solid rgba(233,30,99,0.12);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: bucketLetterOpen 0.5s ease-out forwards;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .bucket-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--pink-deep), transparent);
+      opacity: 0.4;
+    }
+    .bucket-section:nth-child(3) { animation-delay: 0.08s; }
+    .bucket-section:nth-child(4) { animation-delay: 0.16s; }
+    .bucket-section:nth-child(5) { animation-delay: 0.24s; }
+    .bucket-section:nth-child(6) { animation-delay: 0.32s; }
+    .bucket-section:nth-child(7) { animation-delay: 0.4s; }
+    .bucket-section:nth-child(8) { animation-delay: 0.48s; }
+    .bucket-section:nth-child(9) { animation-delay: 0.56s; }
+    .bucket-section:nth-child(10) { animation-delay: 0.64s; }
+    .bucket-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px var(--shadow-strong), 0 0 0 1px rgba(233,30,99,0.1);
+    }
+    @keyframes bucketLetterOpen {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .bucket-section h2 { font-family: 'Itim', cursive; font-size: 1.2rem; color: var(--pink-deep); margin: 0 0 0.75rem; }
+    .bucket-list { list-style: none; padding: 0; margin: 0; }
+    .bucket-list li { padding: 0.4rem 0; padding-left: 1.4rem; position: relative; color: #5c2a3a; line-height: 1.4; transition: transform 0.2s ease; }
+    .bucket-list li::before { content: '♥'; position: absolute; left: 0; color: var(--pink-deep); opacity: 0.7; font-size: 0.9rem; transition: opacity 0.2s ease, transform 0.2s ease; }
+    .bucket-section:hover .bucket-list li::before { opacity: 1; transform: scale(1.1); }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">Valentine's Day</a>
+    <a href="monkeyrun.html">Monkey Run</a>
+    <a href="flappymonkey.html">Flappy Monkey</a>
+    <a href="milestones.html">Our Milestones</a>
+    <a href="bucketlist.html" class="nav-active">Our Bucket List</a>
+  </nav>
+
+  <main class="bucket-page">
+    <h1>Our Bucket List</h1>
+    <p class="sub">Adam & Meaghan — the big stuff we're gonna do together</p>
+
+    <div class="bucket-section">
+      <h2>💒 Marriage & commitment</h2>
+      <ul class="bucket-list">
+        <li>Get engaged</li>
+        <li>Get married</li>
+        <li>Plan our wedding (our day, our way)</li>
+        <li>Go on our honeymoon</li>
+        <li>Celebrate our 1st, 5th, 10th, 25th, 50th anniversaries</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>👶 Our kids</h2>
+      <ul class="bucket-list">
+        <li>Have our first baby — Mark</li>
+        <li>Have our second baby — Victoria</li>
+        <li>Raise them together, watch them grow</li>
+        <li>Their first days of school, graduations, everything in between</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>🏠 Home & grown-up life</h2>
+      <ul class="bucket-list">
+        <li>Get our first place together (apartment or rental)</li>
+        <li>Buy our first house</li>
+        <li>Make it ours — paint, furniture, memories</li>
+        <li>Get our first car together</li>
+        <li>Maybe a second car when we need it</li>
+        <li>Get a pet (or two) when we're ready</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>🎓 School & career</h2>
+      <ul class="bucket-list">
+        <li>Graduate college (both of us)</li>
+        <li>Get our first full-time jobs</li>
+        <li>Support each other through job changes and promotions</li>
+        <li>Build careers we're proud of</li>
+        <li>Maybe go back to school later if we want (masters, etc.)</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>✈️ Travel — big trips</h2>
+      <ul class="bucket-list">
+        <li>Travel to China</li>
+        <li>See the best of Europe together (Italy, France, Spain, UK, Greece, Portugal, Ireland…)</li>
+        <li>Japan</li>
+        <li>Road trip across the USA (or our own country)</li>
+        <li>Beach getaway (Caribbean, Mexico, somewhere tropical)</li>
+        <li>See the Northern Lights</li>
+        <li>At least one “once in a lifetime” trip together</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>🎉 Milestones & moments</h2>
+      <ul class="bucket-list">
+        <li>First anniversary as a couple</li>
+        <li>Move in together</li>
+        <li>First Christmas in our own place</li>
+        <li>First New Year's as husband and wife (one day)</li>
+        <li>First vacation just the two of us</li>
+        <li>Throw a big party or host a holiday (Thanksgiving, etc.)</li>
+        <li>Pay off our first big thing together (car, student loans, etc.)</li>
+        <li>Save up for something huge together</li>
+        <li>Retire one day (way later) and still choose each other every day</li>
+      </ul>
+    </div>
+
+    <div class="bucket-section">
+      <h2>💕 Just us</h2>
+      <ul class="bucket-list">
+        <li>Keep having date nights forever</li>
+        <li>Try that restaurant we've always talked about</li>
+        <li>See our favorite artist or band live together</li>
+        <li>Learn something new together (cooking, a language, a hobby)</li>
+        <li>Be each other's person through everything — good and hard</li>
+      </ul>
+    </div>
+
+    <p style="text-align: center; color: #8b4a5c; margin-top: 1.5rem;">We're gonna do it all. 💕 Adam & Meaghan</p>
+  </main>
+</body>
+</html>

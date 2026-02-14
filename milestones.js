@@ -1,7 +1,7 @@
 (function () {
   var DATING_START = new Date(2023, 3, 17);
-  var HIS_BIRTHDAY = new Date(2005, 11, 24);
-  var HER_BIRTHDAY = new Date(2006, 7, 15);
+  var ADAM_BIRTHDAY = new Date(2005, 11, 24);
+  var MEAGHAN_BIRTHDAY = new Date(2006, 7, 15);
 
   function diffYMD(earlier, later) {
     var y = later.getFullYear() - earlier.getFullYear();
@@ -25,27 +25,27 @@
 
   function update() {
     var now = new Date();
+    var totalDays = daysBetween(DATING_START, now);
 
     var together = diffYMD(DATING_START, now);
     var el = document.getElementById('timeTogether');
     if (el) el.textContent = together.years + ' year' + (together.years !== 1 ? 's' : '') + ', ' + together.months + ' month' + (together.months !== 1 ? 's' : '') + ', ' + together.days + ' day' + (together.days !== 1 ? 's' : '');
 
-    var totalDays = daysBetween(DATING_START, now);
     var nextAnn = nextOccurrence(now, 3, 17);
-    var nextHis = nextOccurrence(now, 11, 24);
-    var nextHers = nextOccurrence(now, 7, 15);
+    var nextAdam = nextOccurrence(now, 11, 24);
+    var nextMeaghan = nextOccurrence(now, 7, 15);
     var cdEl = document.getElementById('countdowns');
     if (cdEl) {
       cdEl.innerHTML =
         '<li><strong>Next anniversary (April 17):</strong> ' + daysBetween(now, nextAnn) + ' days</li>' +
-        '<li><strong>Your next birthday (Dec 24):</strong> ' + daysBetween(now, nextHis) + ' days</li>' +
-        '<li><strong>Meaghan\'s next birthday (Aug 15):</strong> ' + daysBetween(now, nextHers) + ' days</li>';
+        '<li><strong>Adam\'s next birthday (Dec 24):</strong> ' + daysBetween(now, nextAdam) + ' days</li>' +
+        '<li><strong>Meaghan\'s next birthday (Aug 15):</strong> ' + daysBetween(now, nextMeaghan) + ' days</li>';
     }
 
-    var hisAge = diffYMD(HIS_BIRTHDAY, now);
-    var herAge = diffYMD(HER_BIRTHDAY, now);
+    var adamAge = diffYMD(ADAM_BIRTHDAY, now);
+    var meaghanAge = diffYMD(MEAGHAN_BIRTHDAY, now);
     var agesEl = document.getElementById('agesText');
-    if (agesEl) agesEl.textContent = 'You: ' + hisAge.years + ' years old (Dec 24, 2005) · Meaghan: ' + herAge.years + ' years old (Aug 15, 2006)';
+    if (agesEl) agesEl.textContent = 'Adam: ' + adamAge.years + ' years old (Dec 24, 2005) · Meaghan: ' + meaghanAge.years + ' years old (Aug 15, 2006)';
 
     var startYear = DATING_START.getFullYear();
     var endYear = now.getFullYear();
@@ -76,29 +76,51 @@
     var factsEl = document.getElementById('funFacts');
     if (factsEl) {
       var hours = Math.floor(totalDays * 24 + (now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600));
-      var mins = totalDays * 24 * 60 + now.getHours() * 60 + now.getMinutes();
+      var mins = Math.floor(totalDays * 24 * 60 + now.getHours() * 60 + now.getMinutes());
       var sunsets = totalDays;
-      var next1000 = totalDays < 1000 ? ' (in ' + (1000 - totalDays) + ' days!)' : '';
-      var next2000 = totalDays < 2000 ? ' (in ' + (2000 - totalDays) + ' days)' : '';
       factsEl.innerHTML =
-        '<li>That\'s about <strong>' + totalDays + '</strong> days together.</li>' +
+        '<li>That\'s <strong>' + totalDays + '</strong> days together.</li>' +
         '<li>Roughly <strong>' + (hours >= 1000 ? (hours / 1000).toFixed(1) + 'k' : hours) + '</strong> hours.</li>' +
         '<li>Over <strong>' + (mins >= 1000000 ? (mins / 1000000).toFixed(1) + ' million' : (mins / 1000).toFixed(0) + 'k') + '</strong> minutes.</li>' +
-        '<li>You\'ve seen about <strong>' + sunsets + '</strong> sunsets together.</li>' +
-        (totalDays >= 1000 ? '<li>You hit 1000 days together! 🎉</li>' : '<li>Next milestone: 1000 days together' + next1000 + '</li>') +
-        (totalDays >= 2000 ? '<li>2000 days together! 💕</li>' : '<li>Then: 2000 days' + next2000 + '</li>');
+        '<li>We\'ve seen about <strong>' + sunsets + '</strong> sunsets together.</li>' +
+        '<li>That\'s <strong>' + Math.floor(totalDays / 7) + '</strong> weeks (and counting!).</li>';
+    }
+
+    var milestones = [100, 250, 500, 750, 1000, 1500, 2000, 2500];
+    var dayHtml = '';
+    for (var i = 0; i < milestones.length; i++) {
+      var m = milestones[i];
+      if (totalDays >= m) {
+        dayHtml += '<li>We hit <strong>' + m + ' days</strong> together! 🎉</li>';
+      } else {
+        dayHtml += '<li>Next: <strong>' + m + ' days</strong> (in ' + (m - totalDays) + ' days)</li>';
+      }
+    }
+    var dayEl = document.getElementById('dayMilestones');
+    if (dayEl) dayEl.innerHTML = dayHtml;
+
+    var flewEl = document.getElementById('timeFlewList');
+    if (flewEl) {
+      flewEl.innerHTML =
+        '<div class="then-now"><strong>Then (April 2023):</strong> Taylor Swift\'s Eras Tour had just started. <strong>Now:</strong> Multiple record-breaking legs and a cultural reset.</div>' +
+        '<div class="then-now"><strong>Then:</strong> Ariana Grande hadn\'t released "yes, and?" or starred in Wicked. <strong>Now:</strong> Both out and huge.</div>' +
+        '<div class="then-now"><strong>Then:</strong> ChatGPT had just gone mainstream. <strong>Now:</strong> AI is everywhere.</div>' +
+        '<div class="then-now"><strong>Then:</strong> King Charles III hadn\'t been crowned yet (May 2023). <strong>Now:</strong> Coronation done, new reign underway.</div>' +
+        '<div class="then-now"><strong>Then:</strong> Paris 2024 Olympics were still a year away. <strong>Now:</strong> Already in the history books.</div>' +
+        '<div class="then-now"><strong>Then:</strong> Total solar eclipse across North America hadn\'t happened (April 2024). <strong>Now:</strong> Done — next one years out.</div>' +
+        '<div class="then-now"><strong>Then:</strong> Artemis and commercial moon missions were still in the pipeline. <strong>Now:</strong> Lunar landings and new space milestones.</div>';
     }
 
     var eventsEl = document.getElementById('worldEvents');
     if (eventsEl) {
       eventsEl.innerHTML =
         '<li>May 2023 — Coronation of King Charles III</li>' +
-        '<li>2023 — Barbenheimer summer</li>' +
-        '<li>2023–2024 — Multiple lunar missions (Artemis, lunar landers)</li>' +
-        '<li>2024 — Total solar eclipse across North America</li>' +
-        '<li>2024 — Paris Olympics</li>' +
-        '<li>2025 — AI and tech kept changing the world</li>' +
-        '<li>… and through it all, you two have been together 💕</li>';
+        '<li>2023 — Taylor Swift\'s Eras Tour became a global phenomenon</li>' +
+        '<li>2023–2024 — Lunar missions (Artemis, commercial landers)</li>' +
+        '<li>April 2024 — Total solar eclipse across North America</li>' +
+        '<li>Summer 2024 — Paris Olympics</li>' +
+        '<li>2024 — Ariana Grande\'s "yes, and?" and Wicked</li>' +
+        '<li>2024–2025 — AI, elections, and a whole lot of life</li>';
     }
   }
 
