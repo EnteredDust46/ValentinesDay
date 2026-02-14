@@ -62,7 +62,7 @@
     if (list.length === 0) {
       photosContainer.innerHTML = [
         '<p class="no-photos">',
-        'No photos or videos yet! Add .jpg, .jpeg, .png, .mov, or .mp4 files to the <strong>images</strong> folder, then run<br>',
+        'No photos or videos yet! Add .jpg, .jpeg, .png, .mov, or .mp4 files to the <strong>Images</strong> folder, then run<br>',
         '<code>node build-image-list.js</code> and refresh.',
         '</p>',
       ].join('');
@@ -75,7 +75,7 @@
         card.className = 'media-card';
         card.style.animationDelay = (0.05 + index * 0.07) + 's';
 
-        const src = new URL('images/' + encodeURIComponent(filename), base).href;
+        const src = new URL('Images/' + encodeURIComponent(filename), base).href;
 
         if (isVideo(filename)) {
           const video = document.createElement('video');
