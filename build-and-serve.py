@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build images-list.json from images/ and serve the site so you can open it in a browser."""
+"""Build images-list.json from Images/ and serve the site so you can open it in a browser."""
 import json
 import os
 import sys
 
-IMAGES_DIR = "images"
+IMAGES_DIR = "Images"
 OUTPUT_FILE = "images-list.json"
 IMAGE_EXT = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 VIDEO_EXT = {".mov", ".mp4", ".webm"}
@@ -19,7 +19,7 @@ def main():
         os.makedirs(images_path, exist_ok=True)
         with open(output_path, "w") as f:
             json.dump([], f, indent=2)
-        print("Created images/ folder. Add photos/videos and run again.")
+        print("Created Images/ folder. Add photos/videos and run again.")
     else:
         files = [
             f for f in os.listdir(images_path)

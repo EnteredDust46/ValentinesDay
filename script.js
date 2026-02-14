@@ -1,6 +1,6 @@
 (function () {
   // Fix base URL for GitHub Pages: when URL is .../ValentinesDay (no trailing slash), ./ resolves
-  // to site root and images/ 404. Set base to the directory of this page so images/ always works.
+  // to site root and Images/ 404. Set base to the directory of this page so Images/ always works.
   (function setBaseHref() {
     var path = window.location.pathname;
     var dir = path.endsWith('/') ? path : (path.lastIndexOf('/') > 0 ? path.slice(0, path.lastIndexOf('/') + 1) : path + '/');
@@ -67,7 +67,7 @@
         '</p>',
       ].join('');
     } else {
-      // Use document.baseURI so images resolve correctly on GitHub Pages (project or user site) and locally
+      // Use document.baseURI so Images resolve correctly on GitHub Pages (project or user site) and locally
       const base = document.baseURI || window.location.href;
 
       list.forEach((filename, index) => {

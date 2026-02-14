@@ -4,7 +4,7 @@ A long-form Valentine's page with intro animation, a love note, and a gallery of
 
 ## Setup
 
-1. **Add your files** into the `images` folder:
+1. **Add your files** into the `Images` folder:
    - **Images:** `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
    - **Videos:** `.mov`, `.mp4`, `.webm`
 
@@ -27,7 +27,7 @@ A long-form Valentine's page with intro animation, a love note, and a gallery of
 
 - **Love note:** A short dedication (edit the text in `index.html` in the `.love-note-text` paragraph).
 
-- **Gallery:** All images and videos from `images` with a staggered “throw-in” animation.  
+- **Gallery:** All images and videos from `Images` with a staggered “throw-in” animation.  
   Videos play on hover (muted, looped).
 
 - **Footer:** “Made with love · Happy Valentine’s Day”.
@@ -35,4 +35,4 @@ A long-form Valentine's page with intro animation, a love note, and a gallery of
 ## Customize
 
 - **Love note text:** In `index.html`, find the `<p class="love-note-text">` and change the text inside.
-- **More media:** Add files to `images`, then run `node build-image-list.js` and refresh the page.
+- **More media:** Add files to `Images`, then run `node build-image-list.js` and refresh the page.
