@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monkey Run 🐵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">Valentine's Day</a>
+    <a href="monkeyrun.html" class="nav-active">Monkey Run</a>
+    <a href="flappymonkey.html">Flappy Monkey</a>
+    <a href="milestones.html">Our Milestones</a>
+  </nav>
+
+  <main class="game-page-main">
+    <h1 class="game-page-title">Monkey Run</h1>
+    <p class="game-instructions">Jump (Space or ↑) over gorillas and collect bananas! Your score = bananas collected.</p>
+    <div class="game-wrapper">
+      <div class="game-score" id="gameScore">Bananas: 0</div>
+      <div class="game-canvas-wrap">
+        <canvas id="gameCanvas" width="800" height="400" tabindex="0"></canvas>
+        <div class="game-monkey-overlay" id="monkeyOverlay">
+          <img id="monkeyGif" src="GameSprites/MONKEYRUN.gif" alt="" />
+        </div>
+      </div>
+      <div class="game-over-overlay" id="gameOverOverlay" hidden>
+        <p class="game-over-title">Oops! You hit a gorilla.</p>
+        <p class="game-over-score" id="gameOverScore">You collected 0 bananas!</p>
+        <button type="button" class="cta" id="gameRestart">Play again</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

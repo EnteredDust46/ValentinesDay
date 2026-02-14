@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Milestones 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .milestones-page { padding: 2rem 1rem 4rem; max-width: 42rem; margin: 0 auto; }
+    .milestones-page h1 { font-family: 'Itim', cursive; color: var(--pink-deep); text-align: center; margin-bottom: 0.5rem; }
+    .milestones-page .sub { text-align: center; color: #8b4a5c; margin-bottom: 2rem; }
+    .milestone-card { background: rgba(255,255,255,0.75); border-radius: 20px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 6px 20px var(--shadow); border: 1px solid rgba(233,30,99,0.1); }
+    .milestone-card h2 { font-family: 'Itim', cursive; font-size: 1.2rem; color: var(--pink-deep); margin: 0 0 0.5rem; }
+    .milestone-card p { margin: 0; color: #5c2a3a; line-height: 1.5; }
+    .big-timer { font-size: 1.75rem; font-weight: 700; color: var(--pink-deep); }
+    .count-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .count-list li { padding: 0.25rem 0; border-bottom: 1px solid rgba(233,30,99,0.08); }
+    .count-list li:last-child { border-bottom: none; }
+    .world-events { font-size: 0.95rem; opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">Valentine's Day</a>
+    <a href="monkeyrun.html">Monkey Run</a>
+    <a href="flappymonkey.html">Flappy Monkey</a>
+    <a href="milestones.html" class="nav-active">Our Milestones</a>
+  </nav>
+
+  <main class="milestones-page">
+    <h1>Our Milestones</h1>
+    <p class="sub">Meaghan & you — since April 17, 2023</p>
+
+    <div class="milestone-card">
+      <h2>💕 Time together</h2>
+      <p class="big-timer" id="timeTogether">—</p>
+      <p id="timeTogetherSub">years, months, days (and counting!)</p>
+    </div>
+
+    <div class="milestone-card">
+      <h2>⏱️ Countdowns</h2>
+      <ul class="count-list" id="countdowns"></ul>
+    </div>
+
+    <div class="milestone-card">
+      <h2>🎂 Ages</h2>
+      <p id="agesText">—</p>
+    </div>
+
+    <div class="milestone-card">
+      <h2>🎉 Holidays together</h2>
+      <p>Since you started dating, you've shared:</p>
+      <ul class="count-list" id="holidaysList"></ul>
+    </div>
+
+    <div class="milestone-card">
+      <h2>🌟 Fun facts</h2>
+      <ul class="count-list" id="funFacts"></ul>
+    </div>
+
+    <div class="milestone-card">
+      <h2>🌍 The world since you got together</h2>
+      <p class="world-events">A few things that happened in the world since April 17, 2023:</p>
+      <ul class="count-list world-events" id="worldEvents"></ul>
+    </div>
+  </main>
+
+  <script src="milestones.js"></script>
+</body>
+</html>

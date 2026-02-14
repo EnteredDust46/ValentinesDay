@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flappy Monkey 🐵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">Valentine's Day</a>
+    <a href="monkeyrun.html">Monkey Run</a>
+    <a href="flappymonkey.html" class="nav-active">Flappy Monkey</a>
+    <a href="milestones.html">Our Milestones</a>
+  </nav>
+
+  <main class="game-page-main">
+    <h1 class="game-page-title">Flappy Monkey</h1>
+    <p class="game-instructions">Tap or click to flap! Fly through the gorilla pipes and grab the banana in each gap. Don't hit the gorillas!</p>
+    <div class="game-wrapper">
+      <div class="game-score" id="flappyScore">Bananas: 0</div>
+      <div class="game-canvas-wrap">
+        <canvas id="flappyCanvas" width="400" height="600" tabindex="0"></canvas>
+        <div class="game-monkey-overlay flappy-monkey-wrap" id="flappyMonkeyWrap">
+          <img id="flappyMonkeyGif" src="GameSprites/MONKEYRUN.gif" alt="" />
+        </div>
+      </div>
+      <div class="game-over-overlay" id="flappyGameOver" hidden>
+        <p class="game-over-title">You hit a gorilla!</p>
+        <p class="game-over-score" id="flappyGameOverScore">Bananas: 0</p>
+        <button type="button" class="cta" id="flappyRestart">Play again</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="flappy.js"></script>
+</body>
+</html>

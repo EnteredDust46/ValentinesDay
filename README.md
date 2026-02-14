@@ -1,25 +1,38 @@
 # Valentine's Day Website 💕
 
-A cute single-page site with a Valentine's intro and a photo section that animates your pics.
+A long-form Valentine's page with intro animation, a love note, and a gallery of your photos and videos (including .mov).
 
-## Quick start
+## Setup
 
-1. **Add your photos** into the `images` folder (`.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`).
-2. **Build the image list** (run once after adding/changing images):
+1. **Add your files** into the `images` folder:
+   - **Images:** `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
+   - **Videos:** `.mov`, `.mp4`, `.webm`
+
+2. **Build the media list** (run once after adding or changing files):
    ```bash
    node build-image-list.js
    ```
-3. **Open the site** with a local server (needed so `images-list.json` loads):
+   This creates `images-list.json` so the site knows what to show.
+
+3. **Run a local server** (required so the page can load `images-list.json`):
    ```bash
    npx serve .
    ```
-   Then open the URL it prints (e.g. http://localhost:3000).
+   Open the URL it prints (e.g. http://localhost:3000).
 
-To open the HTML file directly in the browser, use a simple server like above; otherwise the fetch for `images-list.json` may not work.
+## What’s on the page
 
-## What’s included
+- **Intro:** “Happy Valentine’s Day” with a short animation and floating hearts.  
+  Button: **“See our pics & videos →”**.
 
-- **Intro**: “Happy Valentine’s Day” with a short pop-in animation and floating hearts.
-- **Photo section**: Click “See our pics” to load and show all images from `images` with a staggered “throw-in” animation.
+- **Love note:** A short dedication (edit the text in `index.html` in the `.love-note-text` paragraph).
 
-Enjoy.
+- **Gallery:** All images and videos from `images` with a staggered “throw-in” animation.  
+  Videos play on hover (muted, looped).
+
+- **Footer:** “Made with love · Happy Valentine’s Day”.
+
+## Customize
+
+- **Love note text:** In `index.html`, find the `<p class="love-note-text">` and change the text inside.
+- **More media:** Add files to `images`, then run `node build-image-list.js` and refresh the page.

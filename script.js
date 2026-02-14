@@ -3,7 +3,12 @@
   const photosContainer = document.getElementById('photosContainer');
   const showPhotosBtn = document.getElementById('showPhotos');
 
-  // Spawn extra floating hearts in the background
+  const VIDEO_EXT = ['.mov', '.mp4', '.webm'];
+  function isVideo(filename) {
+    const ext = filename.slice(filename.lastIndexOf('.')).toLowerCase();
+    return VIDEO_EXT.includes(ext);
+  }
+
   function addFloatingHearts() {
     const bg = document.querySelector('.hearts-bg');
     if (!bg) return;
@@ -28,14 +33,17 @@
 
   addFloatingHearts();
 
-  // Load image list and render photos
   async function loadAndShowPhotos() {
     let list = [];
-    try {
-      const res = await fetch('images-list.json');
-      if (res.ok) list = await res.json();
-    } catch (_) {
-      console.warn('Could not load images-list.json. Run: node build-image-list.js');
+    const embedded = document.getElementById('media-list');
+    if (embedded && embedded.textContent) {
+      try { list = JSON.parse(embedded.textContent); } catch (_) {}
+    }
+    if (list.length === 0) {
+      try {
+        const res = await fetch('images-list.json');
+        if (res.ok) list = await res.json();
+      } catch (_) {}
     }
 
     photosContainer.innerHTML = '';
@@ -43,23 +51,41 @@
     if (list.length === 0) {
       photosContainer.innerHTML = [
         '<p class="no-photos">',
-        'No photos yet! Add images to the <strong>images</strong> folder, then run<br>',
+        'No photos or videos yet! Add .jpg, .jpeg, .png, .mov, or .mp4 files to the <strong>images</strong> folder, then run<br>',
         '<code>node build-image-list.js</code> and refresh.',
         '</p>',
       ].join('');
     } else {
-      list.forEach((filename) => {
+      list.forEach((filename, index) => {
         const card = document.createElement('div');
-        card.className = 'photo-card';
-        const img = document.createElement('img');
-        img.src = 'images/' + encodeURIComponent(filename);
-        img.alt = '';
-        img.loading = 'lazy';
-        img.onerror = function () {
-          card.classList.add('broken');
-          card.style.background = '#ffe4ec';
-        };
-        card.appendChild(img);
+        card.className = 'media-card';
+        card.style.animationDelay = (0.05 + index * 0.06) + 's';
+
+        const src = 'images/' + encodeURIComponent(filename);
+
+        if (isVideo(filename)) {
+          const video = document.createElement('video');
+          video.src = src;
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.setAttribute('preload', 'metadata');
+          card.appendChild(video);
+          card.classList.add('media-card--video');
+          card.addEventListener('mouseenter', function () { video.play(); });
+          card.addEventListener('mouseleave', function () { video.pause(); });
+          video.play().catch(function () {});
+        } else {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = '';
+          img.loading = 'lazy';
+          img.onerror = function () {
+            card.classList.add('broken');
+            card.style.background = '#ffe4ec';
+          };
+          card.appendChild(img);
+        }
         photosContainer.appendChild(card);
       });
     }
