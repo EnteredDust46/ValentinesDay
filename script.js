@@ -56,23 +56,17 @@
         '</p>',
       ].join('');
     } else {
-      // Resolve base URL so images work on GitHub Pages (e.g. .../ValentinesDay or .../ValentinesDay/)
-      const base = (function () {
-        const path = window.location.pathname;
-        let dir = path;
-        if (!dir.endsWith('/')) {
-          if (path.lastIndexOf('/') > 0) dir = path.slice(0, path.lastIndexOf('/') + 1);
-          else dir = path + '/';  // e.g. /ValentinesDay -> /ValentinesDay/
-        }
-        return window.location.origin + dir;
-      })();
+      // Base for resolution: if URL has no trailing slash and no filename (e.g. .../ValentinesDay), add /
+      // so "images/foo" resolves to .../ValentinesDay/images/foo not .../images/foo
+      let baseUrl = window.location.href.split('#')[0].split('?')[0];
+      if (!baseUrl.endsWith('/') && !/\/[^/]+\.[a-z0-9]+$/i.test(baseUrl)) baseUrl += '/';
 
       list.forEach((filename, index) => {
         const card = document.createElement('div');
         card.className = 'media-card';
         card.style.animationDelay = (0.05 + index * 0.07) + 's';
 
-        const src = base + 'images/' + encodeURIComponent(filename);
+        const src = new URL('images/' + encodeURIComponent(filename), baseUrl).href;
 
         if (isVideo(filename)) {
           const video = document.createElement('video');
